@@ -11,3 +11,20 @@ Specs:
 - [ ] Implement find by release date
 - [ ] Implement find by genre (science fiction and fantasy, romance, mystery)
 - [ ] Implement find by adults, teens, and kids
+- [ ] Enter your zip code and receive a list of Barns and Noble book stores near you
+
+Extra:
+- [ ] Write README.md with a short description, install instructions, a contributors guide and
+      a link to the license for your code
+- [ ] Record a 30 min coding session with your favorite screen capture tool
+- [ ] Prepare a video demo (with narration) describing how a user would interact with the working gem
+- [ ] Write a blog post about the project and process
+- [ ] On Learn, submit links to the GitHub repository for your app, your video demo,
+      and your blog post, each to the corresponding textbox in the right rail, and hit "I'm done" to wrap it up.
+
+
+## Requirements
+
+1. Provide a CLI
+2. CLI must provide access to data from a web page.
+3. The data provided must go at least one level deep, generally by showing the user a list of available data and then being able to drill down into a specific item.
