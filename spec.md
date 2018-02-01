@@ -3,7 +3,7 @@
 Book_Releases_cli_app checks book stores "Barnes and Noble" and "Books a Million" to list the Upcoming Book Releases.
 
 Specs:
-- [x] Have a CLI for interfacing with the application
+- [ ] Have a CLI for interfacing with the application
 - [ ] Pull data from an external source:
   - [ ] Barnes and Noble https://www.barnesandnoble.com/b/coming-soon/_/N-1oyfZ8q8
   - [ ] Books a Million http://www.booksamillion.com/comingsoon?mobile=no&DDTN=Books&DDLN=Coming-Soon
@@ -21,10 +21,3 @@ Extra:
 - [ ] Write a blog post about the project and process
 - [ ] On Learn, submit links to the GitHub repository for your app, your video demo,
       and your blog post, each to the corresponding textbox in the right rail, and hit "I'm done" to wrap it up.
-
-
-## Requirements
-
-1. Provide a CLI
-2. CLI must provide access to data from a web page.
-3. The data provided must go at least one level deep, generally by showing the user a list of available data and then being able to drill down into a specific item.
