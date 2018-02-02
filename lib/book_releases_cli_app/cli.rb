@@ -2,16 +2,13 @@ class BookReleasesCliApp::CLI
 
   def call
     list_books
-    menu    
+    menu
   end
 
   def list_books
     puts "New Book Releases"
-    puts <<-DOC.gsub /^\s*/, ''
-      1. The Great Alone  by Kristin Hannah  Available: February 6 2018
-      2. Girl, Wash Your Face  by Rachel Hollis  Available: February 6 2018
-      3. Look for Me  by Lisa Gardner  Available: February 6 2018
-    DOC
+
+    newbooks = BookReleasesCliApp::NewBooks.all
   end
 
   def menu
@@ -29,7 +26,7 @@ class BookReleasesCliApp::CLI
       when "list"
         list_books
       when "exit"
-        puts "Thank you for using the New Book Releases application"
+        puts "Thank you for using New Book Releases application"
       else
         puts "Incorrect enty, type list or exit"
       end
