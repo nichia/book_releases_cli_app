@@ -10,6 +10,10 @@ class BookReleasesCliApp::NewBooks
     #  3. Look for Me  by Lisa Gardner  Available: February 6 2018
     #DOC
 
+    self.scrape_newbooks
+  end
+
+  def self.scrape_newbooks
     newbook_1 = self.new
     newbook_1.title = "The Great Alone"
     newbook_1.author = "Kristin Hannah"

@@ -10,7 +10,7 @@ class BookReleasesCliApp::CLI
 
     @newbooks = BookReleasesCliApp::NewBooks.all
     @newbooks.each.with_index(1) do |newbook, i|
-      puts "#{i}. #{newbook.title} By: #{newbook.author} #{newbook.release_date}"
+      puts "#{i}. #{newbook.title} - #{newbook.author} - #{newbook.release_date}"
     end
   end
 
@@ -21,7 +21,8 @@ class BookReleasesCliApp::CLI
       input = gets.strip.downcase
 
       if input.to_i > 0
-        puts @newbooks[input.to_i - 1]
+        newbook = @newbooks[input.to_i - 1]
+        puts "#{newbook.title} - #{newbook.author} - #{newbook.release_date}"
       elsif input == "list"
         list_books
       elsif input == "exit"
