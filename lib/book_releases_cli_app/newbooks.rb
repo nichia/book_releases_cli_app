@@ -1,5 +1,5 @@
 class BookReleasesCliApp::NewBooks
-  attr_accessor :title, :author, :release_date, :price
+  attr_accessor :title, :author, :release_date, :price, :url, :type
 
   def self.all
 
@@ -21,11 +21,16 @@ class BookReleasesCliApp::NewBooks
   end
 
   def self.scrape_bam
-    url = 'http://www.booksamillion.com/features?cat=upcoming1&oxid=1200&oxname=comingsoonmodule1&oxpage=comingsoon&oxpos=mod1&oxdate=02272017'
-    html = open(url)
+    html = open('http://www.booksamillion.com/comingsoon?mobile=no&DDTN=Books&DDLN=Coming-Soon&id=7171783864562')
     doc = Nokogiri::HTML(html)
-    binding.pry
-    
+    doc.search("div#content .product-list .experiments-module-content-display").each do |product|
+      url = product.search("a").attr("href").value
+      author = product.search("span")[0].text
+      title = product.search("a strong")[0].text
+      price = product.search("a strong")[1].text
+      type = product.search("span")[1].text
+      binding.pry
+    end
   end
 
     #newbook_1 = self.new
