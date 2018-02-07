@@ -24,11 +24,12 @@ class BookReleasesCliApp::NewBooks
     html = open('http://www.booksamillion.com/comingsoon?mobile=no&DDTN=Books&DDLN=Coming-Soon&id=7171783864562')
     doc = Nokogiri::HTML(html)
     doc.search("div#content .product-list .experiments-module-content-display").each do |product|
-      url = product.search("a").attr("href").value
-      author = product.search("span")[0].text
-      title = product.search("a strong")[0].text
-      price = product.search("a strong")[1].text
-      type = product.search("span")[1].text
+      newbook = self.new
+      newbook.url = product.search("a").attr("href").value
+      newbook.author = product.search("span")[0].text
+      newbook.title = product.search("a strong")[0].text
+      newbook.price = product.search("a strong")[1].text
+      newbook.type = product.search("span")[1].text
       binding.pry
     end
   end
