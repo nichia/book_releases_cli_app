@@ -21,8 +21,11 @@ class BookReleasesCliApp::NewBooks
   end
 
   def self.scrape_bam
-    doc = Nokogiri::HTML(open("http://www.booksamillion.com/features?cat=upcoming1&oxid=1200&oxname=comingsoonmodule1&oxpage=comingsoon&oxpos=mod1&oxdate=02272017"))
+    url = 'http://www.booksamillion.com/features?cat=upcoming1&oxid=1200&oxname=comingsoonmodule1&oxpage=comingsoon&oxpos=mod1&oxdate=02272017'
+    html = open(url)
+    doc = Nokogiri::HTML(html)
     binding.pry
+    
   end
 
     #newbook_1 = self.new
