@@ -33,8 +33,8 @@ class BookReleasesCliApp::NewBooks
 
       details = self.scrape_details(newbook.url)
 
-      newbook.release_date = details[0]
-      newbook.overview = details[1]
+      newbook.release_date = details[:release_date]
+      newbook.overview = details[:overview]
 
       newbooks << newbook
       #binding.pry
