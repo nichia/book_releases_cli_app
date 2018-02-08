@@ -23,13 +23,13 @@ class BookReleasesCliApp::NewBooks
     html = open(main_url)
     doc = Nokogiri::HTML(html)
 
-    doc.search("div#content .product-list .experiments-module-content-display").each do |product|
+    doc.css("div#content .product-list .experiments-module-content-display").each do |product|
       newbook = self.new
-      newbook.url = product.search("a").attr("href").value
-      newbook.author = product.search("span")[0].text
-      newbook.title = product.search("a strong")[0].text
-      newbook.price = product.search("a strong")[1].text
-      newbook.type = product.search("span")[1].text
+      newbook.url = product.css("a").attr("href").value
+      newbook.author = product.css("span")[0].text
+      newbook.title = product.css("a strong")[0].text
+      newbook.price = product.css("a strong")[1].text
+      newbook.type = product.css("span")[1].text
 
       details = self.scrape_details(newbook.url)
 
@@ -53,11 +53,11 @@ class BookReleasesCliApp::NewBooks
     html = open(main_url)
     doc = Nokogiri::HTML(html)
 
-    #doc.search("div.inner-content-container")
+    #doc.css("div.inner-content-container")
     #binding.pry
 
-    overview = doc.search("span.details-content-text").text
-    date = doc.search("div.details-content-text li")[3].text
+    overview = doc.css("span.details-content-text").text
+    date = doc.css("div.details-content-text li")[3].text.gsub("Publish Date: ", "")
 
     details << {date: date, overview: overview}
   end
