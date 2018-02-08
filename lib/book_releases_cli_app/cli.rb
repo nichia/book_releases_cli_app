@@ -20,9 +20,10 @@ class BookReleasesCliApp::CLI
       puts "Enter the book number for more information or type list to see the books again or type exit"
       input = gets.strip.downcase
 
-      if input.to_i > 0
+      if input.to_i > 0 && input.to_i <= (@newbooks.count - 1)
         newbook = @newbooks[input.to_i - 1]
-        puts "#{newbook.title} - #{newbook.author} - #{newbook.release_date}"
+        puts "Title: #{newbook.title}  Author: #{newbook.author}  Release Date: #{newbook.release_date}  Format: #{type}  Price: #{price}"
+        puts "OVERVIEW: #{overview}"
       elsif input == "list"
         list_books
       elsif input == "exit"

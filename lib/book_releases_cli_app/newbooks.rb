@@ -37,7 +37,7 @@ class BookReleasesCliApp::NewBooks
       newbook.overview = details[1]
 
       newbooks << newbook
-      binding.pry
+      #binding.pry
     end
 
     #binding.pry
@@ -46,7 +46,7 @@ class BookReleasesCliApp::NewBooks
   end
 
   def self.scrape_details(url)
-    details = []
+    details = {}
 
     main_url = url
 
@@ -56,31 +56,10 @@ class BookReleasesCliApp::NewBooks
     #doc.css("div.inner-content-container")
     #binding.pry
 
-    overview = doc.css("span.details-content-text").text
-    date = doc.css("div.details-content-text li")[3].text.gsub("Publish Date: ", "")
-
-    details << {date: date, overview: overview}
+    details = {
+      :overview => doc.css("span.details-content-text").text,
+      :release_date => doc.css("div.details-content-text li")[3].text.gsub("Publish Date: ", "")
+    }
+    #details << {date: date, overview: overview}
   end
-
-    #newbooks_1 = self.new
-    #newbooks_1.title = "The Great Alone"
-    #newbooks_1.author = "Kristin Hannah"
-    #newbooks_1.release_date = "February 6 2018"
-    #newbooks_1.price = "$10"
-    #@@all << newbooks_1
-
-    #newbooks_2 = self.new
-    #newbooks_2.title = "Girl, Wash Your Face"
-    #newbooks_2.author = "Rachel Hollis"
-    #newbooks_2.release_date = "February 6 2018"
-    #newbooks_2.price = "$15"
-    #@@all << newbooks_2
-
-    #newbooks_3 = self.new
-    #newbooks_3.title = "Look for Me"
-    #newbooks_3.author = "Lisa Gardner"
-    #newbooks_3.release_date = "February 6 2018"
-    #newbooks_3.price = "$20"
-    #@@all << newbooks_3
-
 end
