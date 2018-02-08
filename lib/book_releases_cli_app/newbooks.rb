@@ -9,20 +9,20 @@ class BookReleasesCliApp::NewBooks
     #  3. Look for Me  by Lisa Gardner  Available: February 6 2018
     #DOC
 
-    self.scrape_newbooks
+    self.scraper
+
   end
 
-  def self.scrape_newbooks
+  def self.scraper
     newbooks = []
 
-    newbooks << self.scrape_bam
+    base_url = "http://www.booksamillion.com/"
+    comingsoon_page = "comingsoon?mobile=no&DDTN=Books&DDLN=Coming-Soon&id=7171783864562"
+    main_url = "#{base_url}#{comingsoon_page}"
 
-    newbooks
-  end
-
-  def self.scrape_bam
-    html = open('http://www.booksamillion.com/comingsoon?mobile=no&DDTN=Books&DDLN=Coming-Soon&id=7171783864562')
+    html = open(main_url)
     doc = Nokogiri::HTML(html)
+
     doc.search("div#content .product-list .experiments-module-content-display").each do |product|
       newbook = self.new
       newbook.url = product.search("a").attr("href").value
@@ -30,29 +30,34 @@ class BookReleasesCliApp::NewBooks
       newbook.title = product.search("a strong")[0].text
       newbook.price = product.search("a strong")[1].text
       newbook.type = product.search("span")[1].text
-      binding.pry
+      newbooks << newbook
+      #binding.pry
     end
+
+    #binding.pry
+
+    newbooks
   end
 
-    #newbook_1 = self.new
-    #newbook_1.title = "The Great Alone"
-    #newbook_1.author = "Kristin Hannah"
-    #newbook_1.release_date = "February 6 2018"
-    #newbook_1.price = "$10"
-    #@@all << newbook_1
+    #newbooks_1 = self.new
+    #newbooks_1.title = "The Great Alone"
+    #newbooks_1.author = "Kristin Hannah"
+    #newbooks_1.release_date = "February 6 2018"
+    #newbooks_1.price = "$10"
+    #@@all << newbooks_1
 
-    #newbook_2 = self.new
-    #newbook_2.title = "Girl, Wash Your Face"
-    #newbook_2.author = "Rachel Hollis"
-    #newbook_2.release_date = "February 6 2018"
-    #newbook_2.price = "$15"
-    #@@all << newbook_2
+    #newbooks_2 = self.new
+    #newbooks_2.title = "Girl, Wash Your Face"
+    #newbooks_2.author = "Rachel Hollis"
+    #newbooks_2.release_date = "February 6 2018"
+    #newbooks_2.price = "$15"
+    #@@all << newbooks_2
 
-    #newbook_3 = self.new
-    #newbook_3.title = "Look for Me"
-    #newbook_3.author = "Lisa Gardner"
-    #newbook_3.release_date = "February 6 2018"
-    #newbook_3.price = "$20"
-    #@@all << newbook_3
+    #newbooks_3 = self.new
+    #newbooks_3.title = "Look for Me"
+    #newbooks_3.author = "Lisa Gardner"
+    #newbooks_3.release_date = "February 6 2018"
+    #newbooks_3.price = "$20"
+    #@@all << newbooks_3
 
 end
