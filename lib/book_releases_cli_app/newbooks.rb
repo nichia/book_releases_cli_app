@@ -1,5 +1,5 @@
 class BookReleasesCliApp::NewBooks
-  attr_accessor :title, :author, :release_date, :price, :url, :type
+  attr_accessor :title, :author, :release_date, :price, :url, :type, :overview
 
   def self.all
 
@@ -30,13 +30,36 @@ class BookReleasesCliApp::NewBooks
       newbook.title = product.search("a strong")[0].text
       newbook.price = product.search("a strong")[1].text
       newbook.type = product.search("span")[1].text
+
+      details = self.scrape_details(newbook.url)
+
+      newbook.release_date = details[0]
+      newbook.overview = details[1]
+
       newbooks << newbook
-      #binding.pry
+      binding.pry
     end
 
     #binding.pry
 
     newbooks
+  end
+
+  def self.scrape_details(url)
+    details = []
+
+    main_url = url
+
+    html = open(main_url)
+    doc = Nokogiri::HTML(html)
+
+    #doc.search("div.inner-content-container")
+    #binding.pry
+
+    overview = doc.search("span.details-content-text").text
+    date = doc.search("div.details-content-text li")[3].text
+
+    details << {date: date, overview: overview}
   end
 
     #newbooks_1 = self.new
