@@ -1,5 +1,5 @@
 class BookReleasesCliApp::NewBooks
-  attr_accessor :title, :author, :release_date, :price, :url, :type, :overview
+  attr_accessor :title, :author, :release_date, :price, :url, :type, :overview, :detail_title, :detail_author
 
   def self.all
 
@@ -35,6 +35,9 @@ class BookReleasesCliApp::NewBooks
 
       newbook.release_date = details[:release_date]
       newbook.overview = details[:overview]
+      newbook.detail_title = details[:detail_title]
+      newbook.detail_author = details[:detail_author]
+
 
       newbooks << newbook
       #binding.pry
@@ -58,7 +61,10 @@ class BookReleasesCliApp::NewBooks
 
     details = {
       :overview => doc.css("span.details-content-text").text,
-      :release_date => doc.css("div.details-content-text li")[3].text.gsub("Publish Date: ", "")
+      :release_date => doc.css("div.details-content-text li")[3].text.gsub("Publish Date: ", ""),
+      #:release_date => doc.css("div#details-description-container div.price-block-quote-text span")[1].text.gsub("This item will ship on ", "")
+      :detail_title =>doc.css("div#details-description-container div span.details-title-text")[0].text,
+      :detail_author => doc.css("div#details-description-container div span.details-author-text").text.gsub("by ", "")
     }
     #details << {date: date, overview: overview}
   end
