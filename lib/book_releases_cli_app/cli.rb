@@ -7,9 +7,12 @@ class BookReleasesCliApp::CLI
   end
 
   def load_new_releases
-    puts "Loading new releases from the Book store website..."
+    #puts "Loading new releases from the Books a Million website..."
+    #@newbooks = BookReleasesCliApp::NewBooks.bam_scraper
 
-    @newbooks = BookReleasesCliApp::NewBooks.all
+    puts "Loading new releases from the Barnes and Noble website..."
+    @newbooks = BookReleasesCliApp::NewBooks.bn_scraper
+
   end
 
   def list_books
