@@ -4,7 +4,7 @@ class BookReleasesCliApp::CLI
     load_new_releases
     list_books
     menu
-  end
+  end #-- call --
 
   def load_new_releases
     #puts "Loading new releases from the Books a Million website..."
@@ -13,7 +13,7 @@ class BookReleasesCliApp::CLI
     puts "Loading new releases from the Barnes and Noble website..."
     @newbooks = BookReleasesCliApp::NewBooks.bn_scraper
 
-  end
+  end #-- load_new_releases
 
   def list_books
     puts "New Book Releases"
@@ -21,7 +21,7 @@ class BookReleasesCliApp::CLI
     @newbooks.each.with_index(1) do |newbook, i|
       puts "#{i}. #{newbook.title} - #{newbook.author} - #{newbook.release_date}"
     end
-  end
+  end #-- list_books --
 
   def menu
     input = nil
@@ -42,6 +42,6 @@ class BookReleasesCliApp::CLI
         puts "Incorrect enty, type list or exit"
       end
     end
-  end
+  end #-- menu --
 
-end
+end #-- BookReleasesCliApp::CLI --

@@ -11,7 +11,7 @@ class BookReleasesCliApp::NewBooks
 
     self.bam_scraper
 
-  end
+  end #-- self.all --
 
   def self.bn_scraper
     newbooks = []
@@ -23,7 +23,7 @@ class BookReleasesCliApp::NewBooks
     html = open(main_url)
     doc = Nokogiri::HTML(html)
 
-    doc.css("div#main-content div.product-shelf-tile").each do |product|
+    doc.css("div#main-content div.resultsListContainer div.product-shelf-grid div.product-shelf-tile").each do |product|
       newbook = self.new
 
       newbook.url = "#{base_url}#{product.css(".product-shelf-image .pImageLink").attr("href").text}"
@@ -43,7 +43,31 @@ class BookReleasesCliApp::NewBooks
 
       newbooks << newbook
     end
-  end
+  end #-- self.bn_scraper --
+
+  def self.bn_scrape_details(url)
+    details = {}
+
+    main_url = url
+
+    html = open(main_url)
+    doc = Nokogiri::HTML(html)
+
+    doc.css("div#hero-section-placeholder")
+    binding.pry
+
+    details = {
+      :overview => doc.css("span.details-content-text").text.gsub(/\s+/, " "),
+      #:release_date => doc.css("div.details-content-text li")[3].text.gsub("Publish Date: ", ""),
+      :release_date => doc.css("div#details-description-container div.price-block-quote-text strong")[0].text.gsub("This item will ship on ", "").split(".")[0],
+      :detail_title => doc.css("div#details-description-container div span.details-title-text")[0].text,
+      :detail_author => doc.css("div#details-description-container div span.details-author-text").text.gsub("by ", "").gsub("- ", "").gsub("\n","")
+      #:detail_author => doc.css("div#details-description-container div span.details-author-text").text.gsub("by ", "").gsub("- ", "").gsub(/\s+/," ")
+
+    }
+    #details << {date: date, overview: overview}
+  end #-- self.bn_scrape_details(url) --
+
 
   def self.bam_scraper
     newbooks = []
@@ -78,7 +102,7 @@ class BookReleasesCliApp::NewBooks
     #binding.pry
 
     newbooks
-  end
+  end #-- self.bam_scraper --
 
   def self.bam_scrape_details(url)
     details = {}
@@ -101,5 +125,6 @@ class BookReleasesCliApp::NewBooks
 
     }
     #details << {date: date, overview: overview}
-  end
-end
+  end #-- self.bam_scrape_details(url) --
+
+end #-- BookReleasesCliApp::NewBooks --
