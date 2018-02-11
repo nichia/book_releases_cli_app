@@ -60,11 +60,11 @@ class BookReleasesCliApp::NewBooks
     #binding.pry
 
     details = {
-      :overview => doc.css("span.details-content-text").text,
+      :overview => doc.css("span.details-content-text").text.gsub(/\s+/, " "),
       #:release_date => doc.css("div.details-content-text li")[3].text.gsub("Publish Date: ", ""),
       :release_date => doc.css("div#details-description-container div.price-block-quote-text strong")[0].text.gsub("This item will ship on ", "").split(".")[0],
       :detail_title => doc.css("div#details-description-container div span.details-title-text")[0].text,
-      :detail_author => doc.css("div#details-description-container div span.details-author-text").text.gsub("by ", "").gsub("- ", "")
+      :detail_author => doc.css("div#details-description-container div span.details-author-text").text.gsub("by ", "").gsub("- ", "").gsub(/\s+/," ")
     }
     #details << {date: date, overview: overview}
   end
