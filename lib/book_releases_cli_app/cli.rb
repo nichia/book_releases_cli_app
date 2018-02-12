@@ -30,8 +30,9 @@ class BookReleasesCliApp::CLI
 
       if input.to_i > 0 && input.to_i <= @newbooks.count
         newbook = @newbooks[input.to_i - 1]
-        puts "Title: #{newbook.detail_title}  Author: #{newbook.detail_author}  "
-        puts "Release Date: #{newbook.release_date} Format: #{newbook.type}  Price: #{newbook.price}"
+        puts "Title: #{newbook.detail_title}"
+        puts "Author: #{newbook.detail_author} "
+        puts "Release Date: #{newbook.release_date}  ||  Format: #{newbook.type}  ||  Price: #{newbook.price}"
         puts "OVERVIEW: #{newbook.overview}"
         puts " "
       elsif input == "list"
