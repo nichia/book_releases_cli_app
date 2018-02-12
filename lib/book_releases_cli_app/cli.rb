@@ -70,7 +70,7 @@ class BookReleasesCliApp::CLI
       elsif input == "list"
         list_books
       elsif input == "exit"
-        puts "Thank you for using New Book Releases"
+        puts " "
       else
         puts "Incorrect enty, type list or exit"
       end

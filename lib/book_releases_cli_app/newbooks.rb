@@ -22,21 +22,12 @@ class BookReleasesCliApp::NewBooks
     html = open(main_url)
     doc = Nokogiri::HTML(html)
 
-    #doc.css("div#main-content div.resultsListContainer div.product-shelf-grid div.product-shelf-tile").each do |product|
     doc.css("div#main-content div.product-shelf-info").each do |product|
       newbook = self.new
 
       newbook.url = "#{base_url}#{product.css(".product-shelf-title a").attr("href").text.split(";")[0]}"
       newbook.title = product.css(".product-shelf-title a").text
       newbook.author = product.css(".product-shelf-author").text.gsub("\n\nby ", "")
-      #newbook.price = product.css(".product-shelf-pricing span")[1].text.gsub("\n", "")
-      #newbook.type = product.css(".product-shelf-pricing span")[0].text.gsub("\n", "")
-
-      #newbook.url = "#{base_url}#{product.css(".product-shelf-image .pImageLink").attr("href").text}"
-      #newbook.title = product.css(".product-shelf-title").text.gsub("\n", "")
-      #newbook.author = product.css(".product-shelf-author").text.gsub("\nby ", "")
-      #newbook.price = product.css(".product-shelf-pricing span")[1].text.gsub("\n", "")
-      #newbook.type = product.css(".product-shelf-pricing span")[0].text.gsub("\n", "")
 
       details = self.bn_scrape_details(newbook.url)
 
@@ -73,11 +64,6 @@ class BookReleasesCliApp::NewBooks
       :release_date => doc.css("div#commerce-zone li")[0].text.gsub(" This item will be available on ", "").split("\n")[2],
       :detail_title => doc.css("header#prodSummary-header h1").text,
       :detail_author => doc.css("header#prodSummary-header span")[1].text
-
-      #:overview => doc.css("div#productInfoOverview p").text.gsub(/\s+/, " "),
-      #:release_date => doc.css("div#commerce-zone li")[0].text.gsub(" This item will be available on ", "").split("\n")[2],
-      #:detail_title => doc.css("header#prodSummary-header h1").text,
-      #:detail_author => doc.css("header#prodSummary-header span")[1].text
     }
   end #-- self.bn_scrape_details(url) --
 
