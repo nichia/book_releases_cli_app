@@ -3,7 +3,6 @@ class BookReleasesCliApp::CLI
   def call
     load_new_releases
     list_books_menu
-    menu
   end #-- call --
 
   def load_new_releases
@@ -23,18 +22,23 @@ class BookReleasesCliApp::CLI
       puts "[2] Barnes & Noble New Releases"
       puts "[3] Exit"
       puts "Enter your choice: "
-      input = gets.strip.downcase
+      input = gets.strip
 
       case input.to_i
-      when 1
-        @newbooks = @newbooks_bam
-        list_books("Books a Million")
-      when 2
-        @newbooks = @newbooks_bn
-        list_books("Barnes & Noble")
+      when 1, 2
+        if input.to_i == 1
+          @newbooks = @newbooks_bam
+          name = "Books a Million"
+        else
+          @newbooks = @newbooks_bn
+          name = "Barnes & Noble"
+        end
+
+        list_books(name)
+        view_menu
       when 3
         puts "Thank you for using New Book Releases"
-      when other
+      else
         puts "Incorrect enty, type list or exit"
       end
     end
@@ -50,7 +54,7 @@ class BookReleasesCliApp::CLI
     end
   end #-- list_books --
 
-  def menu
+  def view_menu
     input = nil
     while input != "exit"
       puts "Enter the book number for more information or type list to see the books again or type exit"
@@ -71,6 +75,6 @@ class BookReleasesCliApp::CLI
         puts "Incorrect enty, type list or exit"
       end
     end
-  end #-- menu --
+  end #-- view_menu --
 
 end #-- BookReleasesCliApp::CLI --
