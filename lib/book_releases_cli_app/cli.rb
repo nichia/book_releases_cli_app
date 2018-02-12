@@ -12,7 +12,6 @@ class BookReleasesCliApp::CLI
 
     puts "Loading new releases from the Barnes and Noble website..."
     @newbooks = BookReleasesCliApp::NewBooks.bn_scraper
-
   end #-- load_new_releases
 
   def list_books
@@ -34,6 +33,7 @@ class BookReleasesCliApp::CLI
         puts "Title: #{newbook.detail_title}  Author: #{newbook.detail_author}  "
         puts "Release Date: #{newbook.release_date} Format: #{newbook.type}  Price: #{newbook.price}"
         puts "OVERVIEW: #{newbook.overview}"
+        puts " "
       elsif input == "list"
         list_books
       elsif input == "exit"

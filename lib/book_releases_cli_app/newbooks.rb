@@ -8,9 +8,7 @@ class BookReleasesCliApp::NewBooks
     #  2. Girl, Wash Your Face  by Rachel Hollis  Available: February 6 2018
     #  3. Look for Me  by Lisa Gardner  Available: February 6 2018
     #DOC
-
     self.bam_scraper
-
   end #-- self.all --
 
   def self.bn_scraper
@@ -32,17 +30,18 @@ class BookReleasesCliApp::NewBooks
       newbook.price = product.css(".product-shelf-pricing span")[1].text.gsub("\n", "")
       newbook.type = product.css(".product-shelf-pricing span")[0].text.gsub("\n", "")
 
-      #details = self.bn_scrape_details(newbook.url)
+      details = self.bn_scrape_details(newbook.url)
 
-      #newbook.release_date = details[:release_date]
-      #newbook.overview = details[:overview]
-      #newbook.detail_title = details[:detail_title]
-      #newbook.detail_author = details[:detail_author]
+      newbook.release_date = details[:release_date]
+      newbook.overview = details[:overview]
+      newbook.detail_title = details[:detail_title]
+      newbook.detail_author = details[:detail_author]
 
-      binding.pry
-
+      #binding.pry
       newbooks << newbook
     end
+    
+    newbooks
   end #-- self.bn_scraper --
 
   def self.bn_scrape_details(url)
@@ -53,19 +52,15 @@ class BookReleasesCliApp::NewBooks
     html = open(main_url)
     doc = Nokogiri::HTML(html)
 
-    doc.css("div#hero-section-placeholder")
-    binding.pry
+    #doc.css("div#hero-section-placeholder")
+    #binding.pry
 
     details = {
-      :overview => doc.css("span.details-content-text").text.gsub(/\s+/, " "),
-      #:release_date => doc.css("div.details-content-text li")[3].text.gsub("Publish Date: ", ""),
-      :release_date => doc.css("div#details-description-container div.price-block-quote-text strong")[0].text.gsub("This item will ship on ", "").split(".")[0],
-      :detail_title => doc.css("div#details-description-container div span.details-title-text")[0].text,
-      :detail_author => doc.css("div#details-description-container div span.details-author-text").text.gsub("by ", "").gsub("- ", "").gsub("\n","")
-      #:detail_author => doc.css("div#details-description-container div span.details-author-text").text.gsub("by ", "").gsub("- ", "").gsub(/\s+/," ")
-
+      :overview => doc.css("div#productInfoOverview p").text.gsub(/\s+/, " "),
+      :release_date => doc.css("div#commerce-zone li")[0].text.gsub(" This item will be available on ", "").split("\n")[2],
+      :detail_title => doc.css("header#prodSummary-header h1").text,
+      :detail_author => doc.css("header#prodSummary-header span")[1].text
     }
-    #details << {date: date, overview: overview}
   end #-- self.bn_scrape_details(url) --
 
 
@@ -93,13 +88,10 @@ class BookReleasesCliApp::NewBooks
       newbook.overview = details[:overview]
       newbook.detail_title = details[:detail_title]
       newbook.detail_author = details[:detail_author]
-
-
-      newbooks << newbook
+      
       #binding.pry
+      newbooks << newbook
     end
-
-    #binding.pry
 
     newbooks
   end #-- self.bam_scraper --
@@ -117,14 +109,10 @@ class BookReleasesCliApp::NewBooks
 
     details = {
       :overview => doc.css("span.details-content-text").text.gsub(/\s+/, " "),
-      #:release_date => doc.css("div.details-content-text li")[3].text.gsub("Publish Date: ", ""),
       :release_date => doc.css("div#details-description-container div.price-block-quote-text strong")[0].text.gsub("This item will ship on ", "").split(".")[0],
       :detail_title => doc.css("div#details-description-container div span.details-title-text")[0].text,
       :detail_author => doc.css("div#details-description-container div span.details-author-text").text.gsub("by ", "").gsub("- ", "").gsub("\n","")
-      #:detail_author => doc.css("div#details-description-container div span.details-author-text").text.gsub("by ", "").gsub("- ", "").gsub(/\s+/," ")
-
     }
-    #details << {date: date, overview: overview}
   end #-- self.bam_scrape_details(url) --
-
+  
 end #-- BookReleasesCliApp::NewBooks --
