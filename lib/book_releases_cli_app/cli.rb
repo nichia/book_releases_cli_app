@@ -22,7 +22,7 @@ class BookReleasesCliApp::CLI
       puts "[2] Barnes & Noble New Releases"
       puts "[3] Exit"
       puts "Enter your choice: "
-      input = gets.strip
+      input = gets.strip.downcase
 
       case input.to_i
       when 1, 2
@@ -36,7 +36,7 @@ class BookReleasesCliApp::CLI
 
         list_books(name)
         view_menu
-      when 3
+      when 3, 'exit'
         puts "Thank you for using New Book Releases"
       else
         puts "Incorrect enty, type list or exit"
@@ -50,7 +50,7 @@ class BookReleasesCliApp::CLI
     puts " "
 
     @newbooks.each.with_index(1) do |newbook, i|
-      puts "#{i}. #{newbook.title} - #{newbook.author} - #{newbook.release_date}"
+      puts "#{i}. #{newbook.title} - #{newbook.author} - #{newbook.release_date} - #{newbook.type} - #{newbook.price}"
     end
   end #-- list_books --
 
@@ -63,7 +63,7 @@ class BookReleasesCliApp::CLI
       if input.to_i > 0 && input.to_i <= @newbooks.count
         newbook = @newbooks[input.to_i - 1]
         puts "Title: #{newbook.detail_title}"
-        puts "Author: #{newbook.detail_author} "
+        puts "Author: #{newbook.detail_author}"
         puts "Release Date: #{newbook.release_date}  ||  Format: #{newbook.type}  ||  Price: #{newbook.price}"
         puts "OVERVIEW: #{newbook.overview}"
         puts " "

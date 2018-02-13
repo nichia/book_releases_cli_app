@@ -15,7 +15,6 @@ class BookReleasesCliApp::NewBooks
     newbooks = []
 
     base_url = "https://www.barnesandnoble.com"
-    #comingsoon_page = "/b/books/_/N-26Z29Z8q8Z1f"
     comingsoon_page = "/b/coming-soon/_/N-1oyfZ8q8"
     main_url = "#{base_url}#{comingsoon_page}"
 
@@ -25,7 +24,10 @@ class BookReleasesCliApp::NewBooks
     doc.css("div#main-content div.product-shelf-info").each do |product|
       newbook = self.new
 
-      newbook.url = "#{base_url}#{product.css(".product-shelf-title a").attr("href").text.split(";")[0]}"
+      title_url = product.css(".product-shelf-title a").attr("href").text.split(";")[0]
+      session_url = product.css(".product-shelf-title a").attr("href").text.split("?").last
+
+      newbook.url = "#{base_url}#{title_url}?#{session_url}"
       newbook.title = product.css(".product-shelf-title a").text
       newbook.author = product.css(".product-shelf-author").text.gsub("\n\nby ", "")
 
@@ -37,7 +39,6 @@ class BookReleasesCliApp::NewBooks
       newbook.detail_author = details[:detail_author]
       newbook.type = details[:detail_type]
       newbook.price = details[:detail_price]
-
 
       #binding.pry
       newbooks << newbook
@@ -63,7 +64,7 @@ class BookReleasesCliApp::NewBooks
       :overview => doc.css("div#productInfoOverview p").text.gsub(/\s+/, " "),
       :release_date => doc.css("div#commerce-zone li")[0].text.gsub(" This item will be available on ", "").split("\n")[2],
       :detail_title => doc.css("header#prodSummary-header h1").text,
-      :detail_author => doc.css("header#prodSummary-header span")[1].text
+      :detail_author => doc.css("header#prodSummary-header span a").text
     }
   end #-- self.bn_scrape_details(url) --
 
