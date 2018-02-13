@@ -35,8 +35,10 @@ class BookReleasesCliApp::CLI
         end
 
         list_books(name)
-        view_menu
-      when 3, 'exit'
+        view_menu(name)
+      when 3
+        puts "Thank you for using New Book Releases"
+      when "exit"
         puts "Thank you for using New Book Releases"
       else
         puts "Incorrect enty, type list or exit"
@@ -54,10 +56,10 @@ class BookReleasesCliApp::CLI
     end
   end #-- list_books --
 
-  def view_menu
+  def view_menu(name)
     input = nil
     while input != "exit"
-      puts "Enter the book number for more information or type list to see the books again or type exit"
+      puts "Enter the book number for more information or type list to see #{name} books again or type exit"
       input = gets.strip.downcase
 
       if input.to_i > 0 && input.to_i <= @newbooks.count
@@ -68,7 +70,7 @@ class BookReleasesCliApp::CLI
         puts "OVERVIEW: #{newbook.overview}"
         puts " "
       elsif input == "list"
-        list_books
+        list_books(name)
       elsif input == "exit"
         puts " "
       else
