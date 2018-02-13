@@ -50,7 +50,7 @@ class BookReleasesCliApp::CLI
     puts " "
 
     @newbooks.each.with_index(1) do |newbook, i|
-      puts "#{i}. #{newbook.title} - #{newbook.author} - #{newbook.release_date} - #{newbook.type} - #{newbook.price}"
+      puts "#{i}. #{newbook.title} - #{newbook.author} - #{newbook.release_date} - #{newbook.type} #{newbook.price}"
     end
   end #-- list_books --
 
@@ -66,6 +66,7 @@ class BookReleasesCliApp::CLI
         puts "Author: #{newbook.detail_author}"
         puts "Release Date: #{newbook.release_date}  ||  Format: #{newbook.type}  ||  Price: #{newbook.price}"
         puts "OVERVIEW: #{newbook.overview}"
+        puts " "
       elsif input == "list"
         list_books(name)
       elsif input == "exit"
