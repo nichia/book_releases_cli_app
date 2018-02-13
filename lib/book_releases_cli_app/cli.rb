@@ -52,6 +52,8 @@ class BookReleasesCliApp::CLI
     @newbooks.each.with_index(1) do |newbook, i|
       puts "#{i}. #{newbook.title} - #{newbook.author} - #{newbook.release_date} - #{newbook.type} #{newbook.price}"
     end
+    
+    puts " "
   end #-- list_books --
 
   def view_menu(name)
