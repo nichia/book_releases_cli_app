@@ -38,8 +38,6 @@ class BookReleasesCliApp::CLI
         view_menu(name)
       when 3
         puts "Thank you for using New Book Releases"
-      when "exit"
-        puts "Thank you for using New Book Releases"
       else
         puts "Incorrect enty, type list or exit"
       end
@@ -68,7 +66,6 @@ class BookReleasesCliApp::CLI
         puts "Author: #{newbook.detail_author}"
         puts "Release Date: #{newbook.release_date}  ||  Format: #{newbook.type}  ||  Price: #{newbook.price}"
         puts "OVERVIEW: #{newbook.overview}"
-        puts " "
       elsif input == "list"
         list_books(name)
       elsif input == "exit"
