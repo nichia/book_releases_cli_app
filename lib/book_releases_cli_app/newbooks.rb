@@ -58,16 +58,22 @@ class BookReleasesCliApp::NewBooks
     #doc.css("div#hero-section-placeholder")
     #binding.pry
 
-    bformat = doc.css("div#prodPromo h2#pdp-info-format").text.gsub("\n", "")
+    #bformat = doc.css("div#prodPromo h2#pdp-info-format").text.gsub("\n", "")
+    #if bformat == ""
+    #  bformat = doc.css("section.formatSelect").text.gsub("\n", "").split(" - ")[0]
+    #end
+    bformat = doc.css("section.formatSelect").text.gsub("\n", "").split(" - ") [0]
+    bprice = doc.css("section.formatSelect").text.gsub( / *\n+/, " - " ).split(" - ")[2]
     if bformat == ""
-      bformat = doc.css("section.formatSelect").text.gsub("\n", "").split(" - ")[0]
+      bformat = doc.css("div#prodPromo h2#pdp-info-format").text.gsub("\n", "")
+      bprice = doc.css("div#prodPromo span#pdp-cur-price").text
     end
 
     details = {
       :detail_title => doc.css("header#prodSummary-header h1").text,
       :detail_author => doc.css("header#prodSummary-header span a").text,
       :detail_type => bformat,
-      :detail_price => doc.css("div#prodPromo span#pdp-cur-price").text,
+      :detail_price => bprice,
       :release_date => doc.css("div#commerce-zone li")[0].text.gsub(" This item will be available on ", "").split("\n")[2],
       :overview => doc.css("div#productInfoOverview p").text.gsub(/\s+/, " ")
     }
