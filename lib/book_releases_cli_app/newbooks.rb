@@ -58,10 +58,6 @@ class BookReleasesCliApp::NewBooks
     #doc.css("div#hero-section-placeholder")
     #binding.pry
 
-    #bformat = doc.css("div#prodPromo h2#pdp-info-format").text.gsub("\n", "")
-    #if bformat == ""
-    #  bformat = doc.css("section.formatSelect").text.gsub("\n", "").split(" - ")[0]
-    #end
     bformat = doc.css("section.formatSelect").text.gsub("\n", "").split(" - ") [0]
     bprice = doc.css("section.formatSelect").text.gsub( / *\n+/, " - " ).split(" - ")[2]
     if bformat == ""
@@ -74,7 +70,8 @@ class BookReleasesCliApp::NewBooks
       :detail_author => doc.css("header#prodSummary-header span a").text,
       :detail_type => bformat,
       :detail_price => bprice,
-      :release_date => doc.css("div#commerce-zone li")[0].text.gsub(" This item will be available on ", "").split("\n")[2],
+      :release_date => doc.css("div#ProductDetailsTab td")[2].text,
+      #:release_date => doc.css("div#commerce-zone li")[0].text.gsub(" This item will be available on ", "").split("\n")[2],
       :overview => doc.css("div#productInfoOverview p").text.gsub(/\s+/, " ")
     }
   end #-- self.bn_scrape_details(url) --
