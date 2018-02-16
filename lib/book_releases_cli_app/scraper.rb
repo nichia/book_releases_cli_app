@@ -1,4 +1,13 @@
 class BookReleasesCliApp::Scraper
+  attr_accessor :store
+  attr_reader :doc
+
+
+  def initialize(name)
+    @store = Store.new
+    @store.name = name
+    @doc =
+  end #--
 
   def self.bn_scraper
     newbooks = []

@@ -1,3 +1,5 @@
+class InvalidType < StandErro; end
+
 class BookReleasesCliApp::Store
   attr_accessor :name, :url
   #attr_reader :books
