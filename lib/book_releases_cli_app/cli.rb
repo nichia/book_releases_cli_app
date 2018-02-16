@@ -7,10 +7,10 @@ class BookReleasesCliApp::CLI
 
   def load_new_releases
     puts "Loading new releases from Books a Million website..."
-    @newbooks_bam = BookReleasesCliApp::NewBooks.bam_scraper
+    @newbooks_bam = BookReleasesCliApp::Scraper.bam_scraper
 
     puts "Loading new releases from Barnes and Noble website..."
-    @newbooks_bn = BookReleasesCliApp::NewBooks.bn_scraper
+    @newbooks_bn = BookReleasesCliApp::Scraper.bn_scraper
   end #-- load_new_releases
 
   def list_books_menu
@@ -52,7 +52,7 @@ class BookReleasesCliApp::CLI
     @newbooks.each.with_index(1) do |newbook, i|
       puts "#{i}. #{newbook.title} - #{newbook.author} - #{newbook.release_date} - #{newbook.type} #{newbook.price}"
     end
-    
+
     puts " "
   end #-- list_books --
 

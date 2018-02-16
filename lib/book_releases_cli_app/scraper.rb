@@ -1,15 +1,4 @@
-class BookReleasesCliApp::NewBooks
-  attr_accessor :title, :author, :release_date, :price, :url, :type, :overview, :detail_title, :detail_author
-
-  def self.all
-
-    #puts <<-DOC.gsub /^\s*/, ''
-    #  1. The Great Alone  by Kristin Hannah  Available: February 6 2018
-    #  2. Girl, Wash Your Face  by Rachel Hollis  Available: February 6 2018
-    #  3. Look for Me  by Lisa Gardner  Available: February 6 2018
-    #DOC
-    self.bam_scraper
-  end #-- self.all --
+class BookReleasesCliApp::Scraper
 
   def self.bn_scraper
     newbooks = []
@@ -22,7 +11,7 @@ class BookReleasesCliApp::NewBooks
     doc = Nokogiri::HTML(html)
 
     doc.css("div#main-content div.product-shelf-info").each do |product|
-      newbook = self.new
+      newbook = Book.new
 
       title_url = product.css(".product-shelf-title a").attr("href").text.split(";")[0]
       session_url = product.css(".product-shelf-title a").attr("href").text.split("?").last
@@ -88,7 +77,7 @@ class BookReleasesCliApp::NewBooks
     doc = Nokogiri::HTML(html)
 
     doc.css("div#content .product-list .experiments-module-content-display").each do |product|
-      newbook = self.new
+      newbook = Book.new
 
       newbook.url = product.css("a").attr("href").value
       newbook.title = product.css("a strong")[0].text
@@ -129,4 +118,4 @@ class BookReleasesCliApp::NewBooks
     }
   end #-- self.bam_scrape_details(url) --
 
-end #-- BookReleasesCliApp::NewBooks --
+end #--  BookReleasesCliApp::Scraper --

@@ -25,3 +25,8 @@ New book has Types of Books (Fiction, Non-fiction)
 New book has Genres/Subjects
 New book has a URL
 New book has Format (Hardcover, Paperback, NOOK book, Audiobook)
+
+CLI
+- Scraper
+  - Store
+    - Books
