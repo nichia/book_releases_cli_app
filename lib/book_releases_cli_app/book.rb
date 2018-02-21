@@ -24,19 +24,19 @@ class BookReleasesCliApp::Book
   end #-- self.all --
 
   def self.print_book_detail
-    all.each_with_index(1) do |book, index|
+    all.each.with_index(1) do |book, index|
       puts "[#{index}]. #{book.title} - #{book.author} - #{book.release_date} - #{book.type} #{book.price}"
     end
   end #-- self.print_all --
 
   def self.print_store_book
-    all.each_with_index(1) do |book, index|
+    all.each.with_index(1) do |book, index|
       puts "[#{index}]. #{book.title} - #{book.author} - #{book.release_date} - #{book.type} #{book.price}"
     end
   end #-- self.print_all --
 
   def self.print_all
-    all.each_with_index(1) do |book, index|
+    all.each.with_index(1) do |book, index|
       puts "[#{index}]. #{book.title} - #{book.author} - #{book.release_date} - #{book.type} #{book.price}"
     end
   end #-- self.print_all --

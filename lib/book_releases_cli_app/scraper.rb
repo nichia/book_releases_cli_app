@@ -1,13 +1,13 @@
 class BookReleasesCliApp::Scraper
-  attr_accessor :store
-  attr_reader :doc
+  #attr_accessor :store
+  #attr_reader :doc
 
 
-  def initialize(name)
-    @store = Store.new
-    @store.name = name
-    @doc =
-  end #--
+  #def initialize(name)
+  #  @store = Store.new
+  #  @store.name = name
+  #  @doc =
+  #end #--
 
   def self.bn_scraper
     newbooks = []
@@ -19,30 +19,31 @@ class BookReleasesCliApp::Scraper
     html = open(main_url)
     doc = Nokogiri::HTML(html)
 
-    doc.css("div#main-content div.product-shelf-info").each do |product|
-      newbook = Book.new
+    doc.css("div#main-content div.product-shelf-info").collect do |product|
+      #newbook = Book.new
 
       title_url = product.css(".product-shelf-title a").attr("href").text.split(";")[0]
       session_url = product.css(".product-shelf-title a").attr("href").text.split("?").last
 
-      newbook.url = "#{base_url}#{title_url}?#{session_url}"
-      newbook.title = product.css(".product-shelf-title a").text
-      newbook.author = product.css(".product-shelf-author").text.gsub("\n\nby ", "")
 
-      details = self.bn_scrape_details(newbook.url)
+      book_details = self.bn_scrape_details("#{base_url}#{title_url}?#{session_url}")
 
-      newbook.detail_title = details[:detail_title]
-      newbook.detail_author = details[:detail_author]
-      newbook.type = details[:detail_type]
-      newbook.price = details[:detail_price]
-      newbook.release_date = details[:release_date]
-      newbook.overview = details[:overview]
-
+      book_info = {
+        :url => "#{base_url}#{title_url}?#{session_url}",
+        :title => product.css(".product-shelf-title a").text,
+        :author => product.css(".product-shelf-author").text.gsub("\n\nby ", ""),
+        :detail_title => book_details[:detail_title],
+        :detail_author => book_details[:detail_author],
+        :type => book_details[:detail_type],
+        :price => book_details[:detail_price],
+        :release_date => book_details[:release_date],
+        :overview => book_details[:overview]
+      }
       #binding.pry
-      newbooks << newbook
+      #newbooks << newbook
     end
 
-    newbooks
+    #newbooks
   end #-- self.bn_scraper --
 
   def self.bn_scrape_details(url)
@@ -76,7 +77,6 @@ class BookReleasesCliApp::Scraper
 
 
   def self.bam_scraper
-    newbooks = []
 
     base_url = "http://www.booksamillion.com"
     comingsoon_page = "/comingsoon?mobile=no&DDTN=Books&DDLN=Coming-Soon&id=7171783864562"
@@ -85,28 +85,49 @@ class BookReleasesCliApp::Scraper
     html = open(main_url)
     doc = Nokogiri::HTML(html)
 
-    doc.css("div#content .product-list .experiments-module-content-display").each do |product|
-      newbook = Book.new
+    doc.css("div#content .product-list .experiments-module-content-display").collect do |product|
 
-      newbook.url = product.css("a").attr("href").value
-      newbook.title = product.css("a strong")[0].text
-      newbook.author = product.css("span")[0].text
-      newbook.type = product.css("span")[1].text
-      newbook.price = product.css("a strong")[1].text
+      book_url = product.css("a").attr("href").value
 
-      details = self.bam_scrape_details(newbook.url)
+      book_details = self.bam_scrape_details(book_url)
 
-      newbook.detail_title = details[:detail_title]
-      newbook.detail_author = details[:detail_author]
-      newbook.release_date = details[:release_date]
-      newbook.overview = details[:overview]
+      book_info = {
+        :url => book_url,
+        :title => product.css("a strong")[0].text,
+        :author => product.css("span")[0].text,
+        :detail_title => book_details[:detail_title],
+        :detail_author => book_details[:detail_author],
+        :type => product.css("span")[1].text,
+        :price => product.css("a strong")[1].text,
+        :release_date => book_details[:release_date],
+        :overview => book_details[:overview]
+      }
+    end
+  end #-- self.bam_scraper --
+
+  #newbooks = []
+
+    #doc.css("div#content .product-list .experiments-module-content-display").each do |product|
+    #  newbook = Book.new
+
+    #  newbook.url = product.css("a").attr("href").value
+    #  newbook.title = product.css("a strong")[0].text
+    #  newbook.author = product.css("span")[0].text
+    #  newbook.type = product.css("span")[1].text
+    #  newbook.price = product.css("a strong")[1].text
+
+    #  details = self.bam_scrape_details(newbook.url)
+
+    #  newbook.detail_title = details[:detail_title]
+    #  newbook.detail_author = details[:detail_author]
+    #  newbook.release_date = details[:release_date]
+    #  newbook.overview = details[:overview]
 
       #binding.pry
-      newbooks << newbook
-    end
+    #  newbooks << newbook
+    #end
 
-    newbooks
-  end #-- self.bam_scraper --
+    #newbooks
 
   def self.bam_scrape_details(url)
     details = {}

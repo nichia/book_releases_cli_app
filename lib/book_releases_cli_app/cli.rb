@@ -7,10 +7,10 @@ class BookReleasesCliApp::CLI
 
   def load_new_releases
     puts "Loading new releases from Books a Million website..."
-    bam = Store.new("Books a Million (BAM!)", BookReleasesCliApp::Scraper.bam_scraper)
+    bam = BookReleasesCliApp::Store.new("Books a Million (BAM!)", BookReleasesCliApp::Scraper.bam_scraper)
 
     puts "Loading new releases from Barnes and Noble website..."
-    bn = Store.new("Barnes and Noble (B&N)", BookReleasesCliApp::Scraper.bn_scraper)
+    bn = BookReleasesCliApp::Store.new("Barnes and Noble (B&N)", BookReleasesCliApp::Scraper.bn_scraper)
   end #-- load_new_releases
 
   def list_menu
@@ -23,7 +23,7 @@ class BookReleasesCliApp::CLI
       #puts "[1] Books a Million New Releases"
       #puts "[2] Barnes & Noble New Releases"
 
-      puts "[exit] To Exit"
+      puts "[exit]. Exit"
       puts "Enter your choice: "
 
       input = gets.strip.downcase
@@ -34,8 +34,9 @@ class BookReleasesCliApp::CLI
         list_books(input.to_i)
         view_books(input.to_i)
       else
-        puts "Incorrect enty, type list or exit"
+        puts "Incorrect choice. Please try again."
       end
+    end
 
       #case input.to_i
       #when 1, 2
@@ -77,8 +78,8 @@ class BookReleasesCliApp::CLI
 
     input = nil
     while input != "exit"
-      puts "Enter the number for the book you would like more information."
-      puts "Type 'list' to see a list of #{selected_store.name} books again or type 'exit' to quit."
+      puts "Enter the number for the book you would like more information about, or"
+      puts "type 'list' to see a list of #{selected_store.name} books again or type 'exit' to return to store listing."
 
       input = gets.strip.downcase
 
@@ -86,6 +87,7 @@ class BookReleasesCliApp::CLI
       #if input.to_i > 0 && input.to_i <= @newbooks.count
         #newbook = @newbooks[input.to_i - 1]
         book = selected_store.find_book(input.to_i)
+        puts " "
         puts "Title: #{book.detail_title}"
         puts "Author: #{book.detail_author}"
         puts "Release Date: #{book.release_date}  ||  Format: #{book.type}  ||  Price: #{book.price}"
@@ -96,7 +98,7 @@ class BookReleasesCliApp::CLI
       elsif input == "exit"
         puts " "
       else
-        puts "Incorrect enty, type valid number, 'list' or 'exit'"
+        puts "Incorrect entry, type a valid number or 'list' or 'exit'"
       end
     end
   end #-- view_books --

@@ -1,14 +1,15 @@
-class InvalidType < StandErro; end
+class InvalidType < StandardError; end
 
 class BookReleasesCliApp::Store
   attr_accessor :name, :books
   #attr_reader :books
+  @@all = []
 
   def initialize(name, books_array)
     @name = name
 
     @books = books_array.collect do |book_attributes|
-      Book.new(self, book_attributes)
+      BookReleasesCliApp::Book.new(self, book_attributes)
     end
 
     @@all << self
@@ -39,8 +40,8 @@ class BookReleasesCliApp::Store
   end #-- self.all --
 
   def self.print_all
-    all.each_with_index(1) do |store, index|
-      puts "[#{index}].  #{store.name}"
+    all.each.with_index(1) do |store, index|
+      puts "[#{index}].    #{store.name}"
     end
   end #-- self.print_all
 
