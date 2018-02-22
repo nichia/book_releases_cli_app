@@ -4,23 +4,23 @@ class BookReleasesCliApp::Book
   @@all = []
 
   def initialize(store, attributes)
+    @store = store
+
     attributes.each do |attribute_name, attribute_value|
       self.send("#{attribute_name}=", attribute_value)
     end
 
-    @store = store
-
     @@all << self
   end #-- initialize --
 
+  def self.create_from_book_collection(store, books_array)
+    books_array.each do |book|
+      self.new(store, book)
+    end
+  end #-- self.create_from_book_collection --
+
   def self.all
     @@all
-
-    #puts <<-DOC.gsub /^\s*/, ''
-    #  1. The Great Alone  by Kristin Hannah  Available: February 6 2018
-    #  2. Girl, Wash Your Face  by Rachel Hollis  Available: February 6 2018
-    #  3. Look for Me  by Lisa Gardner  Available: February 6 2018
-    #DOC
   end #-- self.all --
 
   def self.print_book_detail
@@ -40,6 +40,5 @@ class BookReleasesCliApp::Book
       puts "[#{index}]. #{book.title} - #{book.author} - #{book.release_date} - #{book.type} #{book.price}"
     end
   end #-- self.print_all --
-
 
 end #-- BookReleasesCliApp::Book --

@@ -1,14 +1,4 @@
 class BookReleasesCliApp::Scraper
-  #attr_accessor :store
-  #attr_reader :doc
-
-
-  #def initialize(name)
-  #  @store = Store.new
-  #  @store.name = name
-  #  @doc =
-  #end #--
-
   def self.bn_scraper
     newbooks = []
 
@@ -20,11 +10,8 @@ class BookReleasesCliApp::Scraper
     doc = Nokogiri::HTML(html)
 
     doc.css("div#main-content div.product-shelf-info").collect do |product|
-      #newbook = Book.new
-
       title_url = product.css(".product-shelf-title a").attr("href").text.split(";")[0]
       session_url = product.css(".product-shelf-title a").attr("href").text.split("?").last
-
 
       book_details = self.bn_scrape_details("#{base_url}#{title_url}?#{session_url}")
 
@@ -40,22 +27,15 @@ class BookReleasesCliApp::Scraper
         :overview => book_details[:overview]
       }
       #binding.pry
-      #newbooks << newbook
     end
-
-    #newbooks
   end #-- self.bn_scraper --
 
   def self.bn_scrape_details(url)
     details = {}
 
     main_url = url
-
     html = open(main_url)
     doc = Nokogiri::HTML(html)
-
-    #doc.css("div#hero-section-placeholder")
-    #binding.pry
 
     bformat = doc.css("section.formatSelect").text.gsub("\n", "").split(" - ") [0]
     bprice = doc.css("section.formatSelect").text.gsub( / *\n+/, " - " ).split(" - ")[2]
@@ -70,14 +50,12 @@ class BookReleasesCliApp::Scraper
       :detail_type => bformat,
       :detail_price => bprice,
       :release_date => doc.css("div#ProductDetailsTab td")[2].text,
-      #:release_date => doc.css("div#commerce-zone li")[0].text.gsub(" This item will be available on ", "").split("\n")[2],
       :overview => doc.css("div#productInfoOverview p").text.gsub(/\s+/, " ")
     }
   end #-- self.bn_scrape_details(url) --
 
 
   def self.bam_scraper
-
     base_url = "http://www.booksamillion.com"
     comingsoon_page = "/comingsoon?mobile=no&DDTN=Books&DDLN=Coming-Soon&id=7171783864562"
     main_url = "#{base_url}#{comingsoon_page}"
@@ -86,9 +64,7 @@ class BookReleasesCliApp::Scraper
     doc = Nokogiri::HTML(html)
 
     doc.css("div#content .product-list .experiments-module-content-display").collect do |product|
-
       book_url = product.css("a").attr("href").value
-
       book_details = self.bam_scrape_details(book_url)
 
       book_info = {
@@ -105,30 +81,6 @@ class BookReleasesCliApp::Scraper
     end
   end #-- self.bam_scraper --
 
-  #newbooks = []
-
-    #doc.css("div#content .product-list .experiments-module-content-display").each do |product|
-    #  newbook = Book.new
-
-    #  newbook.url = product.css("a").attr("href").value
-    #  newbook.title = product.css("a strong")[0].text
-    #  newbook.author = product.css("span")[0].text
-    #  newbook.type = product.css("span")[1].text
-    #  newbook.price = product.css("a strong")[1].text
-
-    #  details = self.bam_scrape_details(newbook.url)
-
-    #  newbook.detail_title = details[:detail_title]
-    #  newbook.detail_author = details[:detail_author]
-    #  newbook.release_date = details[:release_date]
-    #  newbook.overview = details[:overview]
-
-      #binding.pry
-    #  newbooks << newbook
-    #end
-
-    #newbooks
-
   def self.bam_scrape_details(url)
     details = {}
 
@@ -137,9 +89,7 @@ class BookReleasesCliApp::Scraper
     html = open(main_url)
     doc = Nokogiri::HTML(html)
 
-    #doc.css("div.inner-content-container")
     #binding.pry
-
     details = {
       :detail_title => doc.css("div#details-description-container div span.details-title-text")[0].text,
       :detail_author => doc.css("div#details-description-container div span.details-author-text").text.gsub("by ", "").gsub("- ", "").gsub("\n",""),

@@ -2,22 +2,23 @@ class InvalidType < StandardError; end
 
 class BookReleasesCliApp::Store
   attr_accessor :name, :books
-  #attr_reader :books
+
   @@all = []
 
   def initialize(name, books_array)
     @name = name
 
-    @books = books_array.collect do |book_attributes|
-      BookReleasesCliApp::Book.new(self, book_attributes)
-    end
+    @books = BookReleasesCliApp::Book.create_from_book_collection(self, books_array)
+    #@books = books_array.collect do |book_attributes|
+    #  BookReleasesCliApp::Book.new(self, book_attributes)
+    #end
 
     @@all << self
   end #-- initialize --
 
   def self.find(id)
     @@all[id.to_i - 1]
-  end #-- self.find --
+  end #-- self.find (store-id)--
 
   def books
     @books.dup.freeze
@@ -41,7 +42,7 @@ class BookReleasesCliApp::Store
 
   def self.print_all
     all.each.with_index(1) do |store, index|
-      puts "[#{index}].    #{store.name}"
+      puts "[#{index}]. #{store.name}"
     end
   end #-- self.print_all
 

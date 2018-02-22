@@ -1,13 +1,4 @@
-require 'open-uri'
-require 'nokogiri'
-require 'pry'
+module BookReleasesCliApp
+end
 
-require_relative "./book_releases_cli_app/version"
-require_relative "./book_releases_cli_app/book"
-require_relative "./book_releases_cli_app/store"
-require_relative "./book_releases_cli_app/scraper"
-require_relative "./book_releases_cli_app/cli"
-
-#module BookReleasesCliApp
-  # Your code goes here...
-#end
+require_relative '../config/environment'

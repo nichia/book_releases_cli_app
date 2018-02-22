@@ -14,63 +14,46 @@ class BookReleasesCliApp::CLI
   end #-- load_new_releases
 
   def list_menu
+    system "clear" or system "cls"
+
     input = nil
-    while input != "exit"
+    while input.to_i != 9
       puts "New Book Releases"
-      puts "================="
+      puts "=================".colorize(:blue)
 
       BookReleasesCliApp::Store.print_all
-      #puts "[1] Books a Million New Releases"
-      #puts "[2] Barnes & Noble New Releases"
 
-      puts "[exit]. Exit"
+      puts "[9]. Exit"
       puts "Enter your choice: "
 
       input = gets.strip.downcase
+      binding.pry
 
-      if input == "exit"
+      if input.to_i == "0"
         puts "Thank you for using New Book Releases"
       elsif input.to_i.between?(1, BookReleasesCliApp::Store.all.count)
         list_books(input.to_i)
         view_books(input.to_i)
       else
-        puts "Incorrect choice. Please try again."
+        puts "Incorrect entry. Enter the store number or type '9' to exit.".colorize(:red)
       end
     end
-
-      #case input.to_i
-      #when 1, 2
-      #  if input.to_i == 1
-      #    @newbooks = @newbooks_bam
-      #    name = "Books a Million"
-      #  else
-      #    @newbooks = @newbooks_bn
-      #    name = "Barnes & Noble"
-      #  end
-#
-      #  list_books(name)
-      #  view_menu(name)
-      #when "x"
-      #else
-      #  puts "Incorrect enty, type list or exit"
-      #end
-    #end
   end #-- list_menu --
 
   def list_books(store_index)
     selected_store = BookReleasesCliApp::Store.find(store_index)
 
-    puts " "
-    puts "#{selected_store.name} New Releases"
-    puts " "
+    system "clear" or system "cls"
+    puts "\n#{selected_store.name} New Releases\n".colorize(:blue)
 
-    #BookReleasesCliApp::Book.print_books
+    BookReleasesCliApp::Book.print_all
 
-    selected_store.books.each.with_index(1) do |book, i|
-      puts "#{i}. #{book.title} - #{book.author} - #{book.release_date} - #{book.type} #{book.price}"
-    end
+    #selected_store.books.each.with_index(1) do |book, i|
+    #  puts "#{i}. #{book.title} - #{book.author} - #{book.release_date}"
+      #puts "#{i}. #{book.title} - #{book.author} - #{book.release_date} - #{book.type} #{book.price}"
+    #end
 
-    puts " "
+    puts ""
   end #-- list_menu --
 
   def view_books(store_index)
@@ -78,27 +61,26 @@ class BookReleasesCliApp::CLI
 
     input = nil
     while input != "exit"
-      puts "Enter the number for the book you would like more information about, or"
-      puts "type 'list' to see a list of #{selected_store.name} books again or type 'exit' to return to store listing."
+      puts "Enter a book number to show more information about the book."
+      puts "Type 'list' to see the #{selected_store.name} list again or type 'exit' to select a different store."
 
       input = gets.strip.downcase
+      binding.pry
 
       if input.to_i.between?(1, selected_store.books.count)
-      #if input.to_i > 0 && input.to_i <= @newbooks.count
-        #newbook = @newbooks[input.to_i - 1]
         book = selected_store.find_book(input.to_i)
-        puts " "
+        puts ""
         puts "Title: #{book.detail_title}"
         puts "Author: #{book.detail_author}"
         puts "Release Date: #{book.release_date}  ||  Format: #{book.type}  ||  Price: #{book.price}"
         puts "OVERVIEW: #{book.overview}"
-        puts " "
+        puts ""
       elsif input == "list"
         list_books(store_index)
       elsif input == "exit"
-        puts " "
+        puts ""
       else
-        puts "Incorrect entry, type a valid number or 'list' or 'exit'"
+        puts "Invalid entry.".colorize(:red)
       end
     end
   end #-- view_books --

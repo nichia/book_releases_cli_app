@@ -11,4 +11,5 @@ require "book_releases_cli_app"
 # Pry.start
 
 require "irb"
-IRB.start(__FILE__)
+#IRB.start(__FILE__)
+IRB.start
