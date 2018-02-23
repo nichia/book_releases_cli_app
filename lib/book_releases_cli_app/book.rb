@@ -10,18 +10,36 @@ class BookReleasesCliApp::Book
       self.send("#{attribute_name}=", attribute_value)
     end
 
-    @@all << self
   end #-- initialize --
 
   def self.create_from_book_collection(store, books_array)
-    books_array.each do |book|
-      self.new(store, book)
+
+    books = books_array.collect do |book_hash|
+      book = self.new(store, book_hash)
+      book.save
+      book
     end
+
   end #-- self.create_from_book_collection --
+
+  def save
+    @@all << self
+  end # save instance --
 
   def self.all
     @@all
   end #-- self.all --
+
+  def store=(store)
+    # Assign that store to myself
+
+    binding.pry
+    @store = store
+
+    # Creates a reciprocal belongs to
+    # Tell the store that it has a new book (self)
+    store.add_book(self)
+  end #-- store writter --
 
   def self.print_book_detail
     all.each.with_index(1) do |book, index|
@@ -29,7 +47,7 @@ class BookReleasesCliApp::Book
     end
   end #-- self.print_all --
 
-  def self.print_store_book
+  def self.print_books_by_store
     all.each.with_index(1) do |book, index|
       puts "[#{index}]. #{book.title} - #{book.author} - #{book.release_date} - #{book.type} #{book.price}"
     end

@@ -2,7 +2,7 @@ class BookReleasesCliApp::CLI
 
   def call
     load_new_releases
-    list_menu
+    list_store_menu
   end #-- call --
 
   def load_new_releases
@@ -10,11 +10,12 @@ class BookReleasesCliApp::CLI
     bam = BookReleasesCliApp::Store.new("Books a Million (BAM!)", BookReleasesCliApp::Scraper.bam_scraper)
 
     puts "Loading new releases from Barnes and Noble website..."
-    bn = BookReleasesCliApp::Store.new("Barnes and Noble (B&N)", BookReleasesCliApp::Scraper.bn_scraper)
+    #bn = BookReleasesCliApp::Store.new("Barnes and Noble (B&N)", BookReleasesCliApp::Scraper.bn_scraper)
+    binding.pry
   end #-- load_new_releases
 
-  def list_menu
-    system "clear" or system "cls"
+  def list_store_menu
+    #system "clear" or system "cls"
 
     input = nil
     while input.to_i != 9
@@ -27,26 +28,30 @@ class BookReleasesCliApp::CLI
       puts "Enter your choice: "
 
       input = gets.strip.downcase
-      binding.pry
 
-      if input.to_i == "0"
+      if input.to_i == "9"
         puts "Thank you for using New Book Releases"
       elsif input.to_i.between?(1, BookReleasesCliApp::Store.all.count)
-        list_books(input.to_i)
-        view_books(input.to_i)
+        selected_store = BookReleasesCliApp::Store.find(input.to_i)
+        list_books_by_store(selected_store)
+        view_book(selected_store)
       else
         puts "Incorrect entry. Enter the store number or type '9' to exit.".colorize(:red)
       end
     end
-  end #-- list_menu --
+  end #-- list_store_menu --
 
-  def list_books(store_index)
-    selected_store = BookReleasesCliApp::Store.find(store_index)
-
+  def list_books_by_store(selected_store)
     system "clear" or system "cls"
+
     puts "\n#{selected_store.name} New Releases\n".colorize(:blue)
 
-    BookReleasesCliApp::Book.print_all
+    selected_store.books.each.with_index(1) do |book, i|
+      puts "#{i}. #{book.title} - #{book.author} - #{book.release_date}"
+      puts "#{i}. #{book.title} - #{book.author} - #{book.release_date} - #{book.type} #{book.price}"
+    end
+
+    #BookReleasesCliApp::Book.print_books_by_store
 
     #selected_store.books.each.with_index(1) do |book, i|
     #  puts "#{i}. #{book.title} - #{book.author} - #{book.release_date}"
@@ -54,11 +59,9 @@ class BookReleasesCliApp::CLI
     #end
 
     puts ""
-  end #-- list_menu --
+  end #-- list_books_by_store --
 
-  def view_books(store_index)
-    selected_store = BookReleasesCliApp::Store.find(store_index)
-
+  def view_book(selected_store)
     input = nil
     while input != "exit"
       puts "Enter a book number to show more information about the book."
@@ -83,6 +86,6 @@ class BookReleasesCliApp::CLI
         puts "Invalid entry.".colorize(:red)
       end
     end
-  end #-- view_books --
+  end #-- view_book --
 
 end #-- BookReleasesCliApp::CLI --

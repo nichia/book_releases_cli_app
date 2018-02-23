@@ -1,7 +1,8 @@
 class InvalidType < StandardError; end
 
 class BookReleasesCliApp::Store
-  attr_accessor :name, :books
+  attr_accessor :name
+  attr_reader :books
 
   @@all = []
 
@@ -28,8 +29,10 @@ class BookReleasesCliApp::Store
     if !book.is_a?(Book)
       raise InvalidType, "Must be a Book"
     else
-      @books << book
+      @books << book unless books.include?(book)
+      book.store = self unless book.store == self
     end
+    binding.pry
   end #-- add_book --
 
   def find_book(id)
