@@ -78,6 +78,7 @@ class BookReleasesCliApp::Scraper
         :release_date => book_details[:release_date],
         :overview => book_details[:overview]
       }
+      #binding.pry
     end
   end #-- self.bam_scraper --
 
@@ -89,7 +90,6 @@ class BookReleasesCliApp::Scraper
     html = open(main_url)
     doc = Nokogiri::HTML(html)
 
-    #binding.pry
     details = {
       :detail_title => doc.css("div#details-description-container div span.details-title-text")[0].text,
       :detail_author => doc.css("div#details-description-container div span.details-author-text").text.gsub("by ", "").gsub("- ", "").gsub("\n",""),

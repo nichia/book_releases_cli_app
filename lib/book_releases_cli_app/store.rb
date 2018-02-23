@@ -49,4 +49,11 @@ class BookReleasesCliApp::Store
     end
   end #-- self.print_all
 
+  def self.print_books_by_store(store)
+    store.books.each.with_index(1) do |book, index|
+      #puts "[#{index}]. #{book.title} - #{book.author} - #{book.release_date} - #{book.type} #{book.price}"
+      puts "[#{index}]. #{book.title} - #{book.author} - #{book.release_date}"
+    end
+  end #-- self.print_books_by_store --
+
 end #-- BookReleasesCliApp::Store --

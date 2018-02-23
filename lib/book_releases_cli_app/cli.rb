@@ -10,12 +10,12 @@ class BookReleasesCliApp::CLI
     bam = BookReleasesCliApp::Store.new("Books a Million (BAM!)", BookReleasesCliApp::Scraper.bam_scraper)
 
     puts "Loading new releases from Barnes and Noble website..."
-    #bn = BookReleasesCliApp::Store.new("Barnes and Noble (B&N)", BookReleasesCliApp::Scraper.bn_scraper)
-    binding.pry
+    bn = BookReleasesCliApp::Store.new("Barnes and Noble (B&N)", BookReleasesCliApp::Scraper.bn_scraper)
+    #binding.pry
   end #-- load_new_releases
 
   def list_store_menu
-    #system "clear" or system "cls"
+    system "clear" or system "cls"
 
     input = nil
     while input.to_i != 9
@@ -46,16 +46,9 @@ class BookReleasesCliApp::CLI
 
     puts "\n#{selected_store.name} New Releases\n".colorize(:blue)
 
-    selected_store.books.each.with_index(1) do |book, i|
-      puts "#{i}. #{book.title} - #{book.author} - #{book.release_date}"
-      puts "#{i}. #{book.title} - #{book.author} - #{book.release_date} - #{book.type} #{book.price}"
-    end
-
-    #BookReleasesCliApp::Book.print_books_by_store
-
+    BookReleasesCliApp::Store.print_books_by_store(selected_store)
     #selected_store.books.each.with_index(1) do |book, i|
-    #  puts "#{i}. #{book.title} - #{book.author} - #{book.release_date}"
-      #puts "#{i}. #{book.title} - #{book.author} - #{book.release_date} - #{book.type} #{book.price}"
+    #  puts "#{i}. #{book.title} - #{book.author} - #{book.release_date} - #{book.type} #{book.price}"
     #end
 
     puts ""
@@ -68,7 +61,6 @@ class BookReleasesCliApp::CLI
       puts "Type 'list' to see the #{selected_store.name} list again or type 'exit' to select a different store."
 
       input = gets.strip.downcase
-      binding.pry
 
       if input.to_i.between?(1, selected_store.books.count)
         book = selected_store.find_book(input.to_i)
@@ -79,7 +71,7 @@ class BookReleasesCliApp::CLI
         puts "OVERVIEW: #{book.overview}"
         puts ""
       elsif input == "list"
-        list_books(store_index)
+        list_books_by_store(selected_store)
       elsif input == "exit"
         puts ""
       else
