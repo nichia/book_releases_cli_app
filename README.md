@@ -1,8 +1,6 @@
 # BookReleasesCliApp
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/book_releases_cli_app`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to the Book Releases CLI gem! This application will scrape barnesandnoble.com and booksamillion.com to provide you with a list of the upcoming new book releases. 
 
 ## Installation
 
@@ -22,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Run: book-releases after installing the gem.
 
 ## Development
 
