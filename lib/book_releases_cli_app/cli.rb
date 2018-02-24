@@ -6,11 +6,11 @@ class BookReleasesCliApp::CLI
   end #-- call --
 
   def load_new_releases
-    puts "Loading new releases from Books a Million website..."
-    bam = BookReleasesCliApp::Store.new("Books a Million (BAM!)", BookReleasesCliApp::Scraper.bam_scraper)
-
     puts "Loading new releases from Barnes and Noble website..."
     bn = BookReleasesCliApp::Store.new("Barnes and Noble (B&N)", BookReleasesCliApp::Scraper.bn_scraper)
+
+    puts "Loading new releases from Books a Million website..."
+    bam = BookReleasesCliApp::Store.new("Books a Million (BAM!)", BookReleasesCliApp::Scraper.bam_scraper)
     #binding.pry
   end #-- load_new_releases
 
