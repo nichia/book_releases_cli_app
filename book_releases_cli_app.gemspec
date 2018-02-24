@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["'Ni Chia'"]
   spec.email         = ["'nichia@gmail.com'"]
 
-  spec.summary       = %q{Lists the upcoming book releases sold by "Barnes and Noble" and "Books a Million" }
-  spec.description   = %q{Book_Releases_Cli_App checks book stores "Barnes and Noble" and "Books a Million" to list the Upcoming Book Releases.}
+  spec.summary       = %q{Upcoming Book Releases}
+  spec.description   = %q{Book_Releases_Cli_App lists upcoming book releases by "Barnes and Noble" and "Books a Million" stores.}
   spec.homepage      = "https://github.com/nichia/book_releases_cli_app.git"
   spec.license       = "MIT"
 
