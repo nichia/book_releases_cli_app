@@ -1,6 +1,6 @@
 # BookReleasesCliApp
 
-Welcome to the Book Releases CLI gem! This application will scrape barnesandnoble.com and booksamillion.com to provide you with a list of the upcoming new book releases. 
+Welcome to the Book Releases CLI gem! This application will scrape barnesandnoble.com and booksamillion.com to provide you with a list of the upcoming book releases. 
 
 Select you the website you want to view the upcoming book releases. A list of new books will be displayed. You can get more detail of any book by entering that book's number, otherwise repeat the search or exit.
 
