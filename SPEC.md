@@ -5,7 +5,7 @@ Book_Releases_cli_app checks book stores "Barnes and Noble" and "Books a Million
 Specs:
 - [x] Have a CLI for interfacing with the application
 - [x] Pull data from an external source:
-  - [x] B Books a Million http://www.booksamillion.com/comingsoon?mobile=no&DDTN=Books&DDLN=Coming-Soon&id=7171783864562
+  - [x] Books a Million http://www.booksamillion.com/comingsoon?mobile=no&DDTN=Books&DDLN=Coming-Soon&id=7171783864562
   - [x] Barnes and Noble https://www.barnesandnoble.com/b/coming-soon/_/N-1oyfZ8q8
 
 - [x] Implement both list and detail views
