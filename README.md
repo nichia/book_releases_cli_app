@@ -20,7 +20,9 @@ Or install it yourself as:
 
 ## Usage
 
-Run: book-releases after installing the gem.
+Execute the following command and follow the prompts.
+
+    $ book-releases
 
 ## Development
 
