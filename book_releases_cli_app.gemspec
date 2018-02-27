@@ -20,7 +20,8 @@ Gem::Specification.new do |spec|
     "lib/book_releases_cli_app/scraper.rb",
     "lib/book_releases_cli_app/store.rb",
     "lib/book_releases_cli_app/version.rb",
-    "lib/version.rb"
+    "lib/book_releases_cli_app.rb",
+    "config/environment.rb"
     ]
   spec.bindir        = "bin"
   spec.executables   = ["book-releases"]
