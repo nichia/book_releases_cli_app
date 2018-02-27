@@ -1,7 +1,7 @@
 
-lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "book_releases_cli_app/version"
+#lib = File.expand_path("../lib", __FILE__)
+#$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require_relative "./lib/book_releases_cli_app/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "book_releases_cli_app"
