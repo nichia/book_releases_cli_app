@@ -1,6 +1,6 @@
 # BookReleasesCliApp
 
-Welcome to the Book Releases CLI gem! This application will scrape barnesandnoble.com and booksamillion.com to provide you with a list of the upcoming book releases. 
+Welcome to the Book Releases CLI gem! This application will scrape barnesandnoble.com and booksamillion.com to provide you with a list of the upcoming book releases.
 
 Select the stores you want to view the upcoming book releases. A list view of the store's upcoming books will be displayed. You can get a detail view of a book by entering that book's number, otherwise repeat the search or exit.
 
@@ -24,7 +24,7 @@ Or install it yourself as:
 
 Execute the following command and follow the prompts.
 
-    $ bin/book-releases
+    $ book-releases
 
 ## Development
 
