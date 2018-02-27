@@ -24,7 +24,7 @@ Or install it yourself as:
 
 Execute the following command and follow the prompts.
 
-    $ book-releases
+    $ ./bin/book-releases
 
 ## Development
 
