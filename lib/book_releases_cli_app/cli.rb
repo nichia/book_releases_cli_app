@@ -29,7 +29,7 @@ class BookReleasesCliApp::CLI
 
       input = gets.strip.downcase
 
-      if input.to_i == "9"
+      if input.to_i == 9
         puts "Thank you for using New Book Releases"
       elsif input.to_i.between?(1, BookReleasesCliApp::Store.all.count)
         selected_store = BookReleasesCliApp::Store.find(input.to_i)
@@ -73,7 +73,7 @@ class BookReleasesCliApp::CLI
       elsif input == "list"
         list_books_by_store(selected_store)
       elsif input == "exit"
-        puts ""
+        system "clear" or system "cls"
       else
         puts "Invalid entry.".colorize(:red)
       end
