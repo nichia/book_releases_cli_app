@@ -18,7 +18,8 @@ YouTube videos:
 CLI Examples:
 1. [Daily Deal CLI gem](https://github.com/learn-co-curriculum/daily_deal) 
 2. [Now playing CLI gem](https://github.com/learn-co-curriculum/now-playing-cli-gem)
-3. [Build a CLI gem using TDD and JSON](https://github.com/aviflombaum/seatgeek_cli)
+3. [World's bes restuarant CLI gem](https://github.com/dannyd4315/worlds-best-restaurants-cli-gem)
+4. [Build a CLI gem using TDD and JSON](https://github.com/aviflombaum/seatgeek_cli)
 
 ## How to Build a CLI Gem:
 1. Plan your gem, design your interface
