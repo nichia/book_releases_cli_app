@@ -9,7 +9,7 @@ Select the stores you want to view the upcoming book releases. A list view of th
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'book_releases_cli_app'
+gem 'book_releases'
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install book_releases_cli_app
+    $ gem install book-releases
 
 ## Usage
 
