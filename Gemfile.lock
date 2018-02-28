@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    book_releases_cli_app (0.1.1)
+    book-releases (0.1.0)
       colorize (~> 0.8.1)
 
 GEM
@@ -36,7 +36,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  book_releases_cli_app!
+  book-releases!
   bundler (~> 1.16)
   nokogiri
   pry
