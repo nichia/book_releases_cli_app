@@ -9,7 +9,7 @@ Select the stores you want to view the upcoming book releases. A list view of th
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'book_releases'
+gem 'book-releases'
 ```
 
 And then execute:
