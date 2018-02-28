@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
-#require "bundler/setup"
-#require "book_releases_cli_app"
-require "./lib/book_releases_cli_app"
+require "bundler/setup"
+require_relative "../lib/book_releases_cli_app"
 
 BookReleasesCliApp::CLI.new.call
