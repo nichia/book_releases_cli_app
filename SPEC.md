@@ -12,7 +12,7 @@ Specs:
 - [x] Write README.md with a short description, install instructions, a contributors guide and
       a link to the license for your code
 - [x] Record a 30 min coding session
-- [ ] Prepare a video demo (with narration) describing how a user would interact with the working gem
-- [ ] Write a blog post about the project and process
-- [ ] On Learn Plateform, submit links to the GitHub repository for the CLI app, video demo and blog post
+- [x] Prepare a video demo (with narration) describing how a user would interact with the working gem
+- [x] Write a blog post about the project and process
+- [x] On Learn Plateform, submit links to the GitHub repository for the CLI app, video demo and blog post
 
